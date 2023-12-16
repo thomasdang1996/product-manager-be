@@ -1,0 +1,40 @@
+import com.productmanager.dto.ProductType;
+
+CREATE TABLE productEntity(
+-- TODO cause of NPE: AUTOINCREMENTATION IS NOT WORKING PROPERLY
+    id VARCHAR(50) UNIQUE PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    productType VARCHAR(20) AS ProductType NOT NULL,
+    price DECIMAL(10,1) NOT NULL
+);
+
+INSERT INTO productEntity VALUES(
+'e43cadcd-7bc4-4416-9ac8-31840caaf046',
+'PEARPHONE',
+'TABLET',
+1.1);
+
+findById:
+SELECT * FROM productEntity WHERE id=:id;
+
+findByProductType:
+SELECT * FROM productEntity WHERE productType=:productType;
+
+delete:
+SELECT * FROM productEntity WHERE productType=:productType;
+
+insertProduct:
+INSERT INTO productEntity (id,name,productType,price) VALUES(
+:id,
+:name,
+:productType,
+:price
+);
+
+getAllProducts:
+SELECT * FROM productEntity;
+
+updateProduct:
+UPDATE productEntity
+SET name=:name,productType=:productType, price=:price
+WHERE id = :id;
