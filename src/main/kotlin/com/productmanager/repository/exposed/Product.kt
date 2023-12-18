@@ -1,4 +1,4 @@
-package com.productmanager.repository.entity
+package com.productmanager.repository.exposed
 
 import com.productmanager.dto.ProductType
 import org.jetbrains.exposed.sql.Table

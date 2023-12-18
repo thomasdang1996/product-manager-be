@@ -1,6 +1,5 @@
-package com.productmanager.repository
+package com.productmanager.repository.exposed
 
-import com.productmanager.repository.entity.Products
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.config.*

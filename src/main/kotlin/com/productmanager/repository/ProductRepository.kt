@@ -2,32 +2,26 @@ package com.productmanager.repository
 
 import com.productmanager.ProductEntity
 import com.productmanager.ProductManagerDatabase
-import com.productmanager.dto.ProductType
 import com.productmanager.dto.NewProductRequest
-import java.util.*
+import com.productmanager.dto.ProductType
+import com.productmanager.mapper.toProductEntity
 
-class ProductRepository(private val database: ProductManagerDatabase) {
+class ProductRepository(database: ProductManagerDatabase) {
+    private val queries = database.productManagerDatabaseQueries
+
     fun findByProductType(productType: ProductType): List<ProductEntity> {
-        return database.productManagerDatabaseQueries.findByProductType(productType).executeAsList()
+        return queries.findByProductType(productType).executeAsList()
     }
 
-    // TODO fix mapping of 'UUID -> String' across the whole app
-    fun findById(id: UUID): ProductEntity {
-        return database.productManagerDatabaseQueries.findById(id.toString()).executeAsOne()
+    fun findById(id: String): ProductEntity {
+        return queries.findById(id).executeAsOne()
     }
 
     fun insertProduct(product: NewProductRequest) {
-        database.productManagerDatabaseQueries.insertProduct(
-            UUID.randomUUID().toString(),
-            product.name,
-            ProductType.geTypeByCode(product.productTypeCode),
-            product.price.toBigDecimal()
-        )
+        queries.insertProduct(product.toProductEntity())
     }
 
     fun getAllProducts(): List<ProductEntity> {
-        val allProducts = database.productManagerDatabaseQueries.getAllProducts()
-        println("AS LIST: ${allProducts.executeAsList()}")
-        return allProducts.executeAsList()
+        return queries.getAllProducts().executeAsList()
     }
 }

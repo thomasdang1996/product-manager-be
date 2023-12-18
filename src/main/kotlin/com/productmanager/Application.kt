@@ -1,6 +1,8 @@
 package com.productmanager
 
-import com.productmanager.plugins.*
+import com.productmanager.plugins.configureKoin
+import com.productmanager.plugins.configureMonitoring
+import com.productmanager.plugins.configureRouting
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 
@@ -9,8 +11,6 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    val port = environment.config.propertyOrNull("ktor.deployment.port")?.getString() ?: "9999"
-    println("Running on port $port")
     install(IgnoreTrailingSlash)        //ignore the last slash if typed
     configureKoin()         //Always before configureRouting!
     configureMonitoring()

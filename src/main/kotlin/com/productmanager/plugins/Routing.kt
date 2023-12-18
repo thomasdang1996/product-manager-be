@@ -4,18 +4,15 @@ import com.productmanager.controller.pearStoreRoute
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 
+/**
+ * Configures routing and creates a controller layer for the application
+ */
 fun Application.configureRouting() {
-
-    // Negotiating media types between the client and server. For this, it uses the Accept and Content-Type headers.
-    configureClientNegotiation()
-    configureServerNegotiation()
+    configureContentNegotiation()
     configureStatusPages()
 
     routing {
-        route("api") {        // Verb, Pattern, Handler idiom
-            // Verb - get
-            // Pattern - /user
-            // Handler - body of code
+        route("api") {
             pearStoreRoute()
         }
     }
